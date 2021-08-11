@@ -24,7 +24,7 @@ public class FlightAPI implements FlightController {
         // 출발지가 있는경우
         try {
             filterdList.clear();
-            if (departure_times != null || arrival_times != null) {
+            if (departure_times != null && arrival_times != null) {
                 for (int i = 0; i < flightList.size(); i++) {
                     if (departure_times.equals(flightList.get(i).getDeparture_times()) &&
                             arrival_times.equals(flightList.get(i).getArrival_times())) {
