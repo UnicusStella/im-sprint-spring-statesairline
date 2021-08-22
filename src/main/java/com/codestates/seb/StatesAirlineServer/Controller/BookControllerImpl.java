@@ -38,7 +38,11 @@ public class BookControllerImpl implements BookController{
     }
 
     @Override
-    public List<BookDTO> DeleteByPhone(String phone) {
-        return null;
+    @DeleteMapping(value = "/book")
+    public List<BookDTO> DeleteByPhone(@RequestParam String phone) {
+        return bookList
+                .stream()
+                .filter(item -> !item.getPhone().equals(phone))
+                .collect(Collectors.toList());
     }
 }
