@@ -2,10 +2,7 @@ package com.codestates.seb.StatesAirlineServer.Controller;
 
 import com.codestates.seb.StatesAirlineServer.Data.FlightData;
 import com.codestates.seb.StatesAirlineServer.Domain.FlightDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,7 +45,21 @@ public class FlightControllerImpl implements FlightController{
     }
 
     @Override
-    public FlightDTO.Info UpdateFlightData(String id, FlightDTO.Request data) {
-        return null;
+    @PutMapping(value = "flight/{uuid}")
+    public FlightDTO.Info UpdateFlightData(@PathVariable(value = "uuid") String id,
+                                           @RequestBody(required = false) FlightDTO.Request data) {
+
+        FlightDTO.Info filterData = flightList
+                .stream()
+                .filter(item -> item.getUuid().equals(id))
+                .findAny()
+                .get();
+
+        if(data.getDeparture() != null)filterData.setDeparture(data.getDeparture());
+        if(data.getDestination() != null)filterData.setDestination(data.getDestination());
+        if(data.getDeparture_times() != null)filterData.setDeparture_times(data.getDeparture_times());
+        if(data.getArrival_times() != null)filterData.setArrival_times(data.getArrival_times());
+
+        return filterData;
     }
 }
