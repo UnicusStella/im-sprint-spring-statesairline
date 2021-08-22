@@ -2,9 +2,7 @@ package com.codestates.seb.StatesAirlineServer.Controller;
 
 import com.codestates.seb.StatesAirlineServer.Data.BookData;
 import com.codestates.seb.StatesAirlineServer.Domain.BookDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,8 +31,10 @@ public class BookControllerImpl implements BookController{
     }
 
     @Override
-    public BookDTO CreateBook(BookDTO createData) {
-        return null;
+    @PostMapping(value = "/book")
+    public BookDTO CreateBook(@RequestBody BookDTO createData) {
+         bookList.add(createData);
+        return createData;
     }
 
     @Override
